@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return jsonify({"Choo Choo2": "Welcome to your Flask app 🚅"})
+    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
 
 @app.route('/api/moisture')
 def moisture():
