@@ -13,13 +13,25 @@ CORS(app)
 def index():
     return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
 
+readings = []
 @app.route("/api/moisture", methods=["POST"])
 def get_moisture():
-    #now = datetime.datetime.utcnow()
+    now = datetime.datetime.utcnow()
     data = request.json
-    #sensor_id = data.get("sensor_id")
-    #moisture = data.get("moisture")
-    return jsonify(data)
+    sensor_id = data.get("sensor_id")
+    moisture = data.get("moisture")
+
+    readings.append({
+        "sensor_id": sensor_id,
+        "moisture": moisture,
+        "timestamp": now
+    })
+    return jsonify({"status": "ok"}), 200
+
+@app.route("/api/moisture", methods=["GET"])
+def get_moisture():
+    # In production: query DB
+    return jsonify(readings[-50:])
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
