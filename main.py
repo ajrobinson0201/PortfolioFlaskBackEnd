@@ -15,7 +15,7 @@ def index():
 
 readings = []
 @app.route("/api/moisture", methods=["POST"])
-def get_moisture():
+def post_moisture():
     now = datetime.datetime.utcnow()
     data = request.json
     sensor_id = data.get("sensor_id")
