@@ -20,11 +20,29 @@ def post_moisture():
     sensor_id = data.get("sensor_id")
     moisture = data.get("moisture")
 
-    readings.append({
-        "sensor_id": sensor_id,
-        "moisture": moisture,
-        "timestamp": now
-    })
+    # Check if sensor already exists in readings
+    existing_sensor = False
+    for reading in readings:
+        if reading["id"] == sensor_id:
+            existing_sensor = True
+            break
+    
+    if existing_sensor:
+        # Append new moisture data to existing sensor
+        readings[sensor_id]["moistureData"].append({
+            "moisture": moisture,
+            "timestamp": now.isoformat()
+        })
+    else:
+        # Create new sensor record
+        readings.append({
+            "id": sensor_id,
+            "moistureData": [{
+                "moisture": moisture,
+                "timestamp": now.isoformat()
+            }]
+        })
+
     return jsonify({"status": "ok"}), 200
 
 @app.route("/api/moisture", methods=["GET"])
