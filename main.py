@@ -30,7 +30,7 @@ def post_moisture():
 @app.route("/api/moisture", methods=["GET"])
 def get_moisture():
     # In production: query DB
-    return jsonify(readings[-100:])
+    return jsonify(readings[-50:])
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
