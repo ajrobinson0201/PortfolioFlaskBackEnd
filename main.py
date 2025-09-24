@@ -30,7 +30,7 @@ def post_moisture():
     if existing_sensor:
         # Append new moisture data to existing sensor
         readings[sensor_id]["moistureData"].append({
-            "moisture": moisture,
+            "moisturePercent": moisture,
             "timestamp": now.isoformat()
         })
     else:
@@ -38,7 +38,7 @@ def post_moisture():
         readings.append({
             "id": sensor_id,
             "moistureData": [{
-                "moisture": moisture,
+                "moisturePercent": moisture,
                 "timestamp": now.isoformat()
             }]
         })
