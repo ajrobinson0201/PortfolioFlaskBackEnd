@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
 import datetime
-import random
 
 app = Flask(__name__)
 
@@ -31,7 +30,7 @@ def post_moisture():
 @app.route("/api/moisture", methods=["GET"])
 def get_moisture():
     # In production: query DB
-    return jsonify(readings[-50:])
+    return jsonify(readings[-100:])
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
